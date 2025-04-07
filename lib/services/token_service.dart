@@ -48,12 +48,11 @@ class TokenService extends ChangeNotifier {
   });
 
   // Production LiveKit server URL
-  static const String productionServerUrl =
-      'wss://ai-agent-widget-rlhtr3yk.livekit.cloud';
+  static const String productionServerUrl = 'wss://livekit.istemai.com';
 
   // Production token endpoint
   static const String tokenEndpoint =
-      'http://192.168.45.69:4324/agent/token/inbound';
+      'https://api.samora.ai/agent/token/inbound';
 
   /// Main method to get connection details
   /// First tries hardcoded credentials, then falls back to sandbox
