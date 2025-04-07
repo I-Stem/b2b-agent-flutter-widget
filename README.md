@@ -1,39 +1,73 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Platform-Specific Build Instructions
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+This package requires a few manual configuration steps for building on Android and iOS. Please follow the instructions below for each platform.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## Android
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+For Android, you need to add the following permissions in your **AndroidManifest.xml** file.
 
-## Features
+ **Path:** `android/app/src/main/AndroidManifest.xml`  
+ **Place these inside the `<manifest>` tag, but outside the `<application>` tag:**
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```xml
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 ```
 
-## Additional information
+These permissions ensure that the app has the required access to network connectivity and audio features.
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## iOS
+
+For iOS, you must add specific usage descriptions in your **Info.plist** file.
+
+ **Path:** `ios/Runner/Info.plist`  
+ **Add the following entries inside the `<dict>` tag:**
+
+```xml
+<key>NSMicrophoneUsageDescription</key>
+<string>$(PRODUCT_NAME) uses your microphone</string>
+```
+
+These keys are required for iOS to prompt the user for permission to access the microphone.
+
+---
+
+### iOS Build Error: Deployment Target
+
+If you encounter an error like:
+
+```
+The plugin "flutter_webrtc" requires a higher minimum iOS deployment version than your application is targeting.
+```
+
+You need to update your iOS **Podfile** to target iOS 13.0 or higher.
+
+**Path:** `ios/Podfile`  
+**Find and update this line:**
+
+```ruby
+platform :ios, '13.0'
+```
+
+Then run the following commands in your terminal:
+
+```bash
+cd ios
+pod install
+```
+
+Finally, return to your project root and run:
+
+```bash
+flutter clean
+flutter run
+```
+
+This will ensure compatibility with plugins that require a minimum iOS version (like `flutter_webrtc`).
+
+---
+
+Once these changes are added, you’re all set to build and run the app on Android and iOS!
