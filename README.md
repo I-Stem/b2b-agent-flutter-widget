@@ -1,4 +1,4 @@
-# B2BAgentFlutterWidget
+# Samora Flutter Widget
 
 A Flutter widget that allows integration of a B2B voice assistant agent into your app. Make sure you follow the platform-specific build setup before using the widget.
 
