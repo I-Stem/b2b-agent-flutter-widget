@@ -8,16 +8,14 @@ import 'package:provider/provider.dart';
 
 class B2BAgentFlutterWidget extends StatefulWidget {
   final String participantId;
-  final String companyId;
   final String agentId;
-  final String agentServiceKey;
+  final String publicKey;
 
   const B2BAgentFlutterWidget({
     super.key,
     required this.participantId,
-    required this.companyId,
     required this.agentId,
-    required this.agentServiceKey,
+    required this.publicKey,
   });
 
   @override
@@ -35,9 +33,8 @@ class _B2BAgentFlutterWidgetState extends State<B2BAgentFlutterWidget> {
           create:
               (context) => TokenService(
                 participantId: widget.participantId,
-                companyId: widget.companyId,
                 agentId: widget.agentId,
-                agentServiceKey: widget.agentServiceKey,
+                publicKey: widget.publicKey,
               ),
         ),
         ChangeNotifierProvider(create: (context) => RoomContext(room: room)),

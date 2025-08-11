@@ -33,14 +33,17 @@ import 'package:b2b_agent_flutter_widget/b2b_agent_flutter_widget.dart';
 ...
 
 child: B2BAgentFlutterWidget(
-  agentServiceKey: '<agent-service-key>',
-  companyId: '<company-id>',
-  agentId: '<agent-id>',
   participantId: '<participant-id>',
+  agentId: '<agent-id>',
+  publicKey: '<org-public-key>',
 ),
 ```
 
-Make sure to replace the placeholders with actual values from your backend or config.
+---
+
+## ⚠️ Breaking changes (latest)
+
+- Removed `companyId` and `agentServiceKey` from `B2BAgentFlutterWidget`. Use `publicKey` instead.
 
 ---
 
