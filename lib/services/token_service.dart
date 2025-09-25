@@ -18,15 +18,13 @@ class ConnectionDetails {
 
 class TokenService extends ChangeNotifier {
   final String participantId;
-  final String companyId;
   final String agentId;
-  final String agentServiceKey;
+  final String publicKey;
 
   TokenService({
     required this.participantId,
-    required this.companyId,
     required this.agentId,
-    required this.agentServiceKey,
+    required this.publicKey,
   });
 
   // Production LiveKit server URL
@@ -35,17 +33,17 @@ class TokenService extends ChangeNotifier {
 
   // Production token endpoint
   static const String tokenEndpoint =
-      'https://api.samora.ai/agent/token/inbound';
+      'https://api.samora.ai/v1/livekit/widget-token';
 
   /// Main method to get connection details
   /// First tries hardcoded credentials, then falls back to sandbox
   Future<ConnectionDetails?> fetchConnectionDetails() async {
-    final uri = Uri.parse('$tokenEndpoint/$companyId/$agentId/$participantId');
+    final uri = Uri.parse('$tokenEndpoint/$agentId/$participantId/app');
 
     try {
       final response = await http.get(
         uri,
-        headers: {'X-Agent-Service-Key': agentServiceKey},
+        headers: {'X-Org-Public-Key': publicKey},
       );
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -53,7 +51,7 @@ class TokenService extends ChangeNotifier {
           final data = jsonDecode(response.body);
           return ConnectionDetails(
             serverUrl: productionServerUrl,
-            participantToken: data['token'],
+            participantToken: data['data']['token'],
           );
         } catch (e) {
           debugPrint(

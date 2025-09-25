@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:flutter/material.dart';
 import 'package:b2b_agent_flutter_widget/b2b_agent_flutter_widget.dart';
 
 void main() {
@@ -7,14 +7,17 @@ void main() {
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(
-      // This is a fake test to avoid the error
-      const B2BAgentFlutterWidget(
-        participantId: 'test',
-        companyId: 'test',
-        agentId: 'test',
-        agentServiceKey: 'test',
+      const MaterialApp(
+        home: Scaffold(
+          body: B2BAgentFlutterWidget(
+            participantId: 'test',
+            agentId: 'test',
+            publicKey: 'test',
+          ),
+        ),
       ),
     );
-    expect(find.text('Hello, from B2B Agent Flutter Widget!'), findsOneWidget);
+    // The control bar should render a connect button by default
+    expect(find.text('START A CONVERSATION'), findsOneWidget);
   });
 }
