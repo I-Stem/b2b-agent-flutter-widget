@@ -29,7 +29,7 @@ class TokenService extends ChangeNotifier {
 
   // Production LiveKit server URL
   static const String productionServerUrl =
-      'wss://samora-prod-up2gn0dr.livekit.cloud';
+      'wss://samora-37afih5j.livekit.cloud';
 
   // Production token endpoint
   static const String tokenEndpoint =
